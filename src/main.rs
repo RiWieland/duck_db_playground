@@ -12,9 +12,29 @@ struct configCrawl {
     }
 
 
+fn readConfig (path:String) -> Result<configCrawl, Box<dyn std::error::Error>>  {
+    let file = std::fs::File::open("src/config/configParser.yml")?;
+    let e: Value = serde_yaml::from_reader(file)?;
+    
+    let company_ =  e["Company"][0]["name"].as_str().map(str::to_string);
+    let url_: Option<String> =  e["Company"][0]["url"].as_str().map(str::to_string);
+    let carrerSuffix_ = e["Company"][0]["carrerSuffix"].as_str().map(str::to_string);
+    
+    let crawl = configCrawl{
+        CompanyName :company_,
+        url : url_,
+        carrerSuffix :carrerSuffix_,
+    };
 
+    return Ok(crawl)
+
+}
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
 
+
+
+
+    Ok(())
 
 }
