@@ -17,7 +17,7 @@ fn readConfigEntry (path:String, position:usize) -> Result<configCrawl, Box<dyn 
     let e: Value = serde_yaml::from_reader(file)?;
     
     let company_ =  e["Company"][position]["name"].as_str().map(str::to_string);
-    let url_: Option<String> =  e["Company"][position]["url"].as_str().map(str::to_string);
+    let url_  =  e["Company"][position]["url"].as_str().map(str::to_string);
     let carrer_suffix = e["Company"][position]["carrerSuffix"].as_str().map(str::to_string);
     
     let crawl = configCrawl{
@@ -35,16 +35,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // how to read out index?
     let path =String::from("src/config/configParser.yml"); 
-    //let crawl = readConfigEntry(path, 0);
-
-    let file: std::fs::File = std::fs::File::open(path)?;
-    let e: Value = serde_yaml::from_reader(file)?;
+    let crawl = readConfigEntry(path, 0).unwrap();
     
     
-    let company_: Option<String> =  e["Company"][0]["name"].as_str().map(str::to_string);
-
-
-
-    Ok(())
+    println!("{}", crawl.CompanyName.unwrap());
+    Ok(()) 
 
 }
