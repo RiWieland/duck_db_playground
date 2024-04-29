@@ -12,8 +12,12 @@ struct configCrawl {
     }
 
 impl configCrawl {
+    fn crawlCarrer(&self) -> String {
 
-      
+        let configCrawl { CompanyName: name, url: url , carrerSuffix: suf} = self;
+        let landingUrl = url.as_ref().unwrap().to_owned() + suf.as_ref().unwrap();
+        landingUrl
+    }
 }
 
 fn readConfigEntry (path:String, position:usize) -> Result<configCrawl, Box<dyn std::error::Error>>  {
@@ -42,7 +46,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let path =String::from("src/config/configParser.yml"); 
     let crawlConfig = readConfigEntry(path, 0).unwrap();
 
-    println!("{}", crawl.CompanyName.unwrap());
+    println!("{}", crawlConfig.CompanyName.unwrap());
     Ok(()) 
 
 }
