@@ -11,6 +11,10 @@ struct configCrawl {
     carrerSuffix: Option<String>,
     }
 
+impl configCrawl {
+
+      
+}
 
 fn readConfigEntry (path:String, position:usize) -> Result<configCrawl, Box<dyn std::error::Error>>  {
     let file = std::fs::File::open(path)?;
@@ -31,13 +35,13 @@ fn readConfigEntry (path:String, position:usize) -> Result<configCrawl, Box<dyn 
 }
 
 
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // how to read out index?
     let path =String::from("src/config/configParser.yml"); 
-    let crawl = readConfigEntry(path, 0).unwrap();
-    
-    
+    let crawlConfig = readConfigEntry(path, 0).unwrap();
+
     println!("{}", crawl.CompanyName.unwrap());
     Ok(()) 
 
